@@ -9,7 +9,7 @@
 struct SLKCTX
 {
     /* Settings registry */
-    struct SLKREG settings;
+    struct SLKREG *pSettings;
 };
 
 /* Creates a brand new context data structure */

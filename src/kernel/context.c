@@ -1,5 +1,7 @@
 #include <stdlib.h>
 #include "context.h"
+#include "registry.h"
+#include "settings.h"
 
 
 /**
@@ -9,7 +11,16 @@
  */
 struct SLKCTX *SLFCTX_new()
 {
-    return calloc(1, sizeof(struct SLKCTX));
+    struct SLKCTX *pCtx = calloc(1, sizeof(struct SLKCTX));
+    if (pCtx == NULL){
+        return NULL;
+    }
+    pCtx->pSettings = SLFREG_new();
+    if (pCtx->pSettings == NULL){
+        SLFCTX_free(pCtx);
+        return NULL;
+    }
+    return pCtx;
 }
 
 /**
@@ -22,5 +33,6 @@ void SLFCTX_free(struct SLKCTX *pCtx)
     if (pCtx == NULL){
         return;
     }
+    SLFREG_free(pCtx->pSettings);
     free(pCtx);
 }
