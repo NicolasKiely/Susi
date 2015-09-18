@@ -53,7 +53,7 @@ struct SLKREG
 };
 
 /* Creates new registry */
-struct SLKREG SLFREG_new();
+struct SLKREG *SLFREG_new();
 
 /* Frees registry */
 void SLFREG_free();
