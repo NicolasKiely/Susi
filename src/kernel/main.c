@@ -1,7 +1,9 @@
 #include <string.h>
 #include "settings.h"
+#include "context.h"
 
 /* Boot sequence:
+ *   -Initialize core context
  *   -Read args
  *   -Process settings file
  *

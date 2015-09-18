@@ -13,8 +13,8 @@ struct SLKREG_node
     int isOwner;
 
     /* Previous and next nodes in list */
-    struct SLKREG_node pNext;
-    struct SLKREG_node pPrev;
+    struct SLKREG_node *pNext;
+    struct SLKREG_node *pPrev;
 };
 
 /* Schema interface for managing specific registry items */
@@ -25,7 +25,7 @@ struct SLKREG_schema
      * pOld: Existing object for comparison
      * Return -1 if pNew < pOld, 0 if pNew == pOld, 1 if pNex > pOld
      */
-    int (*node_cmp)(*pNew, *pOld);
+    int (*node_cmp)(void *pNew, void *pOld);
 
     /* Adds new node
      * pObj: Pointer to node object
@@ -40,7 +40,7 @@ struct SLKREG_schema
      * isOwner: Whether or not registry is owner of this object
      */
     void (*node_free)(void *pObj);
-}
+};
 
 /* Represents a registry of linked-list structs */
 struct SLKREG
