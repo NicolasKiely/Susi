@@ -1,0 +1,13 @@
+Current: Command line args processing, Linked List Manager
+
+[.] Kernel
+    [ ] Core Context
+    [.] Bootup Sequence
+        [ ] Load initial settings file
+        [ ] Command line args processing
+    [.] Registry
+        [.] Generic Registry Lists
+        [.] Settings Registry
+        [ ] Plugin registry
+            [ ] Base dll loader
+                [ ] dll api

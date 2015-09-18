@@ -1,0 +1,65 @@
+Kernel:
+    Loads up first
+    Reads base settings
+    Provides Event Hooks and Triggers:
+        Start
+        Reload
+        PluginLoad
+        Shutdown
+        Socket Connect
+        Clock (repeatedly fires)
+        Timer (one time fire)
+    Command System:
+        Namespaced
+        Permissions
+        Low Level: Returns Function Pointer References
+    Basic Plugin Loader (loads file)
+    
+Core:
+    Critical plugins as part of kernel
+    Better Library Plugin Loader (loads folder and data)
+    Python plugin loader (loads folder and python code)
+    Network Protocols:
+        Standard protocol
+        Websockets
+        HTTP
+    Base admin tools
+    Database drivers
+    
+Kernel Settings File:
+File name is "settings.txt"
+Line oriented, in form <keyword> <args>
+LOAD <path> loads plugin binary file at path
+SET <key> <val> Sets parameter key to value
+
+
+Struct naming convention:
+Generic namespace: SL*
+Kernel Data: SLK
+Events: SLEVT
+Plugin-facing data: SLPDAT_*
+Plugin-register functions: SLPREG_*
+
+
+
+Kernel API:
+Works by calling "init" in plugin code
+    - int init(SLPDAT *data, SLPCB *callbacks):
+        Called on plugin load by default loader. Passes SLREG_Data structure
+        and SLREG_Callback structure to function. The callback structure
+        contains the list of callbacks for registering plugin code into the
+        kernel, and the data structure is passed to those callbacks. Return 0
+        for successful load, -1 for failure
+    - SLPREG_hookEvent(SLPEVT *event, function callback, int flags, args):
+        Registers a callback function for a specified event.
+        Events are enumerated in SLPDAT.
+        Flags:
+            Exclusive/Non-Exclusive (default non-exclusive)
+            Override kernel behavior (default non-override)
+    - SLPREG_raiseEvent(SLEVT *event, Flags):
+        Triggers an event for the kernel to handle
+        Flags:
+            Trigger Self or not self (default include self)
+            Trigger Kernel or not (default include kernel)
+            Trigger Plugins or not (default include other plugins)
+    - SLPREG_command(SLPDAT *data, char *name, *callback):
