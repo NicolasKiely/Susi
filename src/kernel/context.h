@@ -8,7 +8,8 @@
 /* Top-level context data structure */
 struct SLKCTX
 {
-    
+    /* Settings registry */
+    struct SLKREG settings;
 };
 
 /* Creates a brand new context data structure */

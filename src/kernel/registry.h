@@ -52,4 +52,10 @@ struct SLKREG
     struct SLKREG_node root;
 };
 
+/* Creates new registry */
+struct SLKREG SLFREG_new();
+
+/* Frees registry */
+void SLFREG_free();
+
 #endif

@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stdlib.h>
 #include "settings.h"
 #include "context.h"
 
@@ -16,6 +17,9 @@ int main(int argc, char* argv[])
     char argFlag = '\0';
     int loadedSettings = 0;
 
+    /* Initialize core context */
+    struct SLKCTX *pCtx = SLFCTX_new();
+
     /* Process args */
     for (int i=0; i<argc; i++){
         if (argv[i][0] == '-'){
@@ -31,4 +35,10 @@ int main(int argc, char* argv[])
             }
         }
     }
+
+    /* Free context */
+    SLFCTX_free(pCtx);
+    pCtx = NULL;
+
+    return EXIT_SUCCESS;
 }
