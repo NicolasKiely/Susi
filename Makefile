@@ -1,17 +1,19 @@
-CC=gcc -Wall -std=c99
-OBJS=obj/kernel/main.o obj/kernel/context.o obj/kernel/registry.o
-KHEADERS=src/kernel/context.h src/kernel/registry.h src/kernel/settings.h
+CC=g++ -Wall
+KOBJS=obj/kernel/main.o obj/kernel/context.o obj/kernel/logger.o
+KHEADERS=src/kernel/context.h src/kernel/logger.h
+
 
 # Final binary compiles
-bin/susi: $(OBJS)
-	$(CC) $(OBJS) -o bin/susi
+bin/susi: $(KOBJS)
+	$(CC) $(KOBJS) -o bin/susi
+
 
 # Intermediate kernel object targets
-obj/kernel/main.o: src/kernel/main.c $(KHEADERS)
-	$(CC) -c src/kernel/main.c -o obj/kernel/main.o
+obj/kernel/main.o: src/kernel/main.cc $(KHEADERS)
+	$(CC) -c src/kernel/main.cc -o obj/kernel/main.o
 
-obj/kernel/context.o: src/kernel/context.c $(KHEADERS)
-	$(CC) -c src/kernel/context.c -o obj/kernel/context.o
+obj/kernel/context.o: src/kernel/context.cc src/kernel/context.h
+	$(CC) -c src/kernel/context.cc -o obj/kernel/context.o
 
-obj/kernel/registry.o: src/kernel/registry.c $(KHEADERS)
-	$(CC) -c src/kernel/registry.c -o obj/kernel/registry.o
+obj/kernel/logger.o: src/kernel/logger.cc src/kernel/logger.h
+	$(CC) -c src/kernel/logger.cc -o obj/kernel/logger.o

@@ -1,21 +1,38 @@
-/* Central repository of application runtime data
- */
-#ifndef KERNEL_CONTEXT_H
-#define KERNEL_CONTEXT_H
+#ifndef _SUSI_KERNEL_CONTEXT_H_
+#define _SUSI_KERNEL_CONTEXT_H_
 
-#include "registry.h"
+#include <vector>
+#include <string>
 
-/* Top-level context data structure */
-struct SLKCTX
-{
-    /* Settings registry */
-    struct SLKREG *pSettings;
-};
+namespace susi {
+namespace kernel {
+    
+  class Context
+  {
+  public:
+    /**
+    * Default contructors for context
+    * @param newName New name for this context, or empty for no name
+    */
+    Context(std::string newName): name(newName) {};
+    Context(): name("") {};
 
-/* Creates a brand new context data structure */
-struct SLKCTX *SLFCTX_new();
+    /**
+    * Returns Context's type name
+    * @return Name of this context
+    */
+    std::string getName();
 
-/* Frees context */
-void SLFCTX_free(struct SLKCTX *pCtx);
+  protected:
+    /** Child contexts */
+    std::vector<Context *> children;
 
-#endif
+  private:
+    /* Context type */
+    std::string name;
+  }; // class Context
+
+} // namespace kernel
+} // namespace susi
+
+#endif // _CONTEXT_H_
