@@ -1,4 +1,4 @@
-CC=g++ -Wall
+CC=g++ -Wall -g
 SK=src/kernel/
 OK=obj/kernel/
 KOBJS=$(OK)main.o $(OK)context.o $(OK)logger.o $(OK)global_context.o \

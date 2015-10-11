@@ -1,7 +1,7 @@
 #ifndef _SUSI_KERNEL_LOGGER_H_
 #define _SUSI_KERNEL_LOGGER_H_
 
-#define DEFAULT_LOGGER_SOURCE "SYSTEM"
+#define DEFAULT_LOGGER_SOURCE "system"
 
 #include <iostream>
 #include <string>

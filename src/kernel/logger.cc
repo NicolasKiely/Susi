@@ -19,7 +19,7 @@ namespace kernel {
       std::string msg
   )
   {
-    Logger::raw("INFO", DEFAULT_LOGGER_SOURCE, msg);
+    Logger::raw("info", DEFAULT_LOGGER_SOURCE, msg);
   }
 
 
@@ -28,7 +28,7 @@ namespace kernel {
       std::string msg
   )
   {
-    Logger::raw("INFO", src, msg);
+    Logger::raw("info", src, msg);
   }
 
 

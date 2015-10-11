@@ -22,6 +22,15 @@ namespace kernel {
           int argc,
           char *argv[]
       );
+
+      /**
+       * Fetches settings value
+       * @param key Lookup token
+       * @return Settings value, "" if not set
+       */
+      std::string operator[](
+          std::string key
+      );
   }; // class GlobalContext
 
 } // namespace kernel
