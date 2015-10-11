@@ -1,5 +1,6 @@
 #include <iostream>
 #include "logger.h"
+#include "global_context.h"
 
 
 /* Boot sequence:
@@ -19,4 +20,7 @@ int main(int argc, char* argv[])
      always be set first before Contexts are initialized, since they use this
      logger class too */
   Logger::setStream(&std::cout);
+
+  /* Initalize global context */
+  GlobalContext gc = GlobalContext(argc, argv);
 }

@@ -70,7 +70,7 @@ namespace kernel {
       std::string msg
   )
   {
-    *Logger::ostrm << level << "#" << src << ":" << msg << "\n";
+    *Logger::ostrm << level << "#" << src << ": " << msg << "\n";
   }
 
 } // namespace kernel

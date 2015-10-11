@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include "logger.h"
 
 namespace susi {
 namespace kernel {
@@ -11,11 +12,17 @@ namespace kernel {
   {
   public:
     /**
-    * Default contructors for context
-    * @param newName New name for this context, or empty for no name
-    */
-    Context(std::string newName): name(newName) {};
-    Context(): name("") {};
+     * Contructor for named contexts
+     * @param newName New name for this context
+     */
+    Context(std::string newName);
+    
+    /**
+     * Constructor for anonymous contexts
+     */
+    Context();
+
+    ~Context();
 
     /**
     * Returns Context's type name
