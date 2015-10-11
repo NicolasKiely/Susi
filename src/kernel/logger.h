@@ -42,6 +42,24 @@ namespace kernel {
     );
 
     /**
+     * Log debug info if enabled
+     * @param msg Message to display
+     */
+    static void debug(
+        std::string msg
+    );
+
+    /**
+     * Log debug info if enabled
+     * @param src Message source
+     * @param msg Message to display
+     */
+    static void debug(
+        std::string src,
+        std::string msg
+    );
+
+    /**
      * Log system warning
      * @param msg Message to display
      */
@@ -80,6 +98,8 @@ namespace kernel {
   private:
     /** Output stream */
     static std::ostream *ostrm;
+    /** If debug messages are enabled */
+    static bool debugEnabled;
 
     /**
      * Post raw message to output

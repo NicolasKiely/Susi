@@ -5,6 +5,7 @@ namespace susi {
 namespace kernel {
 
   std::ostream *Logger::ostrm;
+  bool Logger::debugEnabled = false;
 
   void Logger::setStream(
       std::ostream *stream
@@ -28,6 +29,27 @@ namespace kernel {
   )
   {
     Logger::raw("INFO", src, msg);
+  }
+
+
+  void Logger::debug(
+      std::string msg
+  )
+  {
+    if (Logger::debugEnabled){
+      Logger::raw("DEBUG", DEFAULT_LOGGER_SOURCE, msg);
+    }
+  }
+
+
+  void Logger::debug(
+      std::string src,
+      std::string msg
+  )
+  {
+    if (Logger::debugEnabled){
+      Logger::raw("DEBUG", src, msg);
+    }
   }
 
 
