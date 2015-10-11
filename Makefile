@@ -1,6 +1,8 @@
 CC=g++ -Wall
-KOBJS=obj/kernel/main.o obj/kernel/context.o obj/kernel/logger.o
-KHEADERS=src/kernel/context.h src/kernel/logger.h
+SK=src/kernel/
+OK=obj/kernel/
+KOBJS=$(OK)main.o $(OK)context.o $(OK)logger.o $(OK)global_context.o
+KHEADERS=$(SK)context.h $(SK)logger.h
 
 
 # Final binary compiles
@@ -8,12 +10,21 @@ bin/susi: $(KOBJS)
 	$(CC) $(KOBJS) -o bin/susi
 
 
+# Clean up temp files
+.PHONY: clean
+clean:
+	rm $(OK)*
+
+
 # Intermediate kernel object targets
-obj/kernel/main.o: src/kernel/main.cc $(KHEADERS)
-	$(CC) -c src/kernel/main.cc -o obj/kernel/main.o
+$(OK)main.o: $(SK)main.cc $(KHEADERS)
+	$(CC) -c $(SK)main.cc -o $(OK)main.o
 
-obj/kernel/context.o: src/kernel/context.cc src/kernel/context.h
-	$(CC) -c src/kernel/context.cc -o obj/kernel/context.o
+$(OK)context.o: $(SK)context.cc $(SK)context.h
+	$(CC) -c $(SK)context.cc -o $(OK)context.o
 
-obj/kernel/logger.o: src/kernel/logger.cc src/kernel/logger.h
-	$(CC) -c src/kernel/logger.cc -o obj/kernel/logger.o
+$(OK)logger.o: $(SK)logger.cc $(SK)logger.h
+	$(CC) -c $(SK)logger.cc -o $(OK)logger.o
+
+$(OK)global_context.o: $(SK)global_context.cc $(SK)global_context.h
+	$(CC) -c $(SK)global_context.cc -o $(OK)global_context.o
