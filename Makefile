@@ -1,7 +1,8 @@
 CC=g++ -Wall
 SK=src/kernel/
 OK=obj/kernel/
-KOBJS=$(OK)main.o $(OK)context.o $(OK)logger.o $(OK)global_context.o
+KOBJS=$(OK)main.o $(OK)context.o $(OK)logger.o $(OK)global_context.o \
+	$(OK)settings.o
 KHEADERS=$(SK)context.h $(SK)logger.h
 
 
@@ -28,3 +29,6 @@ $(OK)logger.o: $(SK)logger.cc $(SK)logger.h
 
 $(OK)global_context.o: $(SK)global_context.cc $(SK)global_context.h
 	$(CC) -c $(SK)global_context.cc -o $(OK)global_context.o
+
+$(OK)settings.o: $(SK)settings.cc $(SK)settings.h
+	$(CC) -c $(SK)settings.cc -o $(OK)settings.o

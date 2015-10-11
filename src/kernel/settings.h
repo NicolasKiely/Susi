@@ -1,30 +1,29 @@
-#ifndef _SUSI_KERNEL_GLOBAL_CONTEXT_H_
-#define _SUSI_KERNEL_GLOBAL_CONTEXT_H_
+#ifndef _SUSI_KERNEL_SETTINGS_H_
+#define _SUSI_KERNEL_SETTINGS_H_
 
-#include <string>
 #include "context.h"
 
 namespace susi {
 namespace kernel {
-
+  
   /**
-   * Root context manager
+   * Manages configurable settings
    */
-  class GlobalContext:Context
+  class Settings:public Context
   {
     public:
       /**
-       * Instantiate context as "Global"
+       * Instantiates settings
        * @param argc Number of arguments
        * @param argv Array of argument strings
        */
-      GlobalContext(
+      Settings(
           int argc,
           char *argv[]
       );
-  }; // class GlobalContext
+  }; // class Settings
 
 } // namespace kernel
-} // namespace susi
+} // namespace settings
 
 #endif

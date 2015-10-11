@@ -22,6 +22,9 @@ namespace kernel {
 
   Context::~Context()
   {
+    for (unsigned int i=0; i<this->children.size(); i++){
+      delete this->children[i];
+    }
     if (this->name.size() > 0){
       Logger::info("Shutting down "+ this->name +" context");
     }

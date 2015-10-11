@@ -1,16 +1,16 @@
 Current: Command line args processing, Linked List Manager, Settings
 
 [.] Kernel
-  [.] Core Context
-    [ ] Registries
-      [ ] Settings
   [.] Bootup Sequence
     [.] Initialize registries
-    [ ] Load initial settings file
     [ ] Command line args processing
-  [.] Registry
-    [.] Generic Registry Lists
-    [.] Settings Registry
-    [ ] Plugin registry
+    [ ] Load initial settings file
+  [.] Context
+    [.] Generic Context
+    [.] Global Context
+    [ ] Settings Context
+      [ ] Parse command line args
+      [ ] Parse input file
+    [ ] Plugin Context
       [ ] Base dll loader
         [ ] dll api
