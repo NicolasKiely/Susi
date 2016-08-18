@@ -9,6 +9,7 @@ struct SLUkstr *SLUkstr_new(char *buf)
   if (buf){
     uint32_t blen = strlen(buf);
     return SLUkstr_cstruct(buf, blen, blen+1, true);
+
   } else {
     return SLUkstr_cstruct(NULL, 0, 0, true);
   }
@@ -18,12 +19,13 @@ struct SLUkstr *SLUkstr_new(char *buf)
 struct SLUkstr *SLUkstr_cstruct(char *buf, uint32_t len, uint32_t size, bool isOwner)
 {
   struct SLUkstr *sstr = (struct SLUkstr *) malloc(sizeof(struct SLUkstr));
-  if (sstr == NULL)
+  if (!sstr)
     return NULL;
 
   sstr->size = size;
 
-  if (buf == NULL){
+  if (!buf){
+    /* No string given */
     sstr->len = 0;
 
     if (size > 0){
@@ -58,6 +60,8 @@ struct SLUkstr *SLUkstr_cstruct(char *buf, uint32_t len, uint32_t size, bool isO
       }
     }
   }
+
+  return sstr;
 }
 
 
@@ -82,7 +86,7 @@ void SLUkstr_free(struct SLUkstr **sstr)
 
   SLUkstr_dstruct(*sstr);
 
-  if (!*sstr)
+  if (*sstr)
     free(*sstr);
 
   *sstr = NULL;
