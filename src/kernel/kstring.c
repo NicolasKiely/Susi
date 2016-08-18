@@ -44,10 +44,6 @@ struct SLUkstr *SLUkstr_cstruct(char *buf, uint32_t len, uint32_t size, bool isO
     sstr->len = len;
 
     if (isOwner){
-      /* Assign as buffer */
-      sstr->buf = buf;
-
-    } else {
       /* Copy from buffer (note: not the same as strncpy) */
       sstr->buf = (char *) malloc(size);
       uint32_t i = 0;
@@ -58,7 +54,12 @@ struct SLUkstr *SLUkstr_cstruct(char *buf, uint32_t len, uint32_t size, bool isO
         /* Append null char, if space is left over */
         sstr->buf[i] = '\0';
       }
+
+    } else {
+      /* Assign as buffer */
+      sstr->buf = buf;
     }
+
   }
 
   return sstr;

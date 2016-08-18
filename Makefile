@@ -30,6 +30,7 @@ bin/susi: $(KOBJS) $(KTESTS)
 .PHONY: clean tests
 clean:
 	rm $(OK)*
+	rm $(TXK)*
 
 tests: $(KTESTS)
 
