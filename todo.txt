@@ -3,7 +3,7 @@ Current: Command line args processing, Linked List Manager, Settings
 [.] Kernel
   [.] Bootup Sequence
     [.] Initialize registries
-    [ ] Command line args processing
+    [.] Command line args processing
     [ ] Load initial settings file
   [.] Context
     [.] Generic Context
