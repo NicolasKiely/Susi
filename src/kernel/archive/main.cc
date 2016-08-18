@@ -23,4 +23,9 @@ int main(int argc, char* argv[])
 
   /* Initalize global context */
   GlobalContext gc = GlobalContext(argc, argv);
+
+  /* Check settings file */
+  if (gc["core:settings"].length()){
+    /* Load settings file */
+  }
 }
