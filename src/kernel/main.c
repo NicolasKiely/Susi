@@ -1,7 +1,8 @@
 #include <string.h>
 #include <stdlib.h>
-#include "settings.h"
-#include "context.h"
+#include "kstring.h"
+//#include "settings.h"
+//#include "context.h"
 
 /* Boot sequence:
  *   -Initialize core context
@@ -12,15 +13,15 @@
  *   -f <file>: Settings file to read (default "settings.txt")
  *   -s <settings line>: Override settings line
  */
-int main(int argc, char* argv[])
-{
-    char argFlag = '\0';
-    int loadedSettings = 0;
+int main(int argc, char* argv[]){
+    //char argFlag = '\0';
+    //int loadedSettings = 0;
 
-    /* Initialize core context */
+    // Initialize core context
+    /*
     struct SLKCTX *pCtx = SLFCTX_new();
 
-    /* Process args */
+    // Process args
     for (int i=0; i<argc; i++){
         if (argv[i][0] == '-'){
             argFlag = argv[i][1];
@@ -36,9 +37,10 @@ int main(int argc, char* argv[])
         }
     }
 
-    /* Free context */
+    // Free context
     SLFCTX_free(pCtx);
     pCtx = NULL;
+    */
 
     return EXIT_SUCCESS;
 }

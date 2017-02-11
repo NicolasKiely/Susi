@@ -9,7 +9,7 @@
 #define SLUkstr_DEFAULT_BUFFER_SIZE 16
 
 /**
- * String object used for kernel. Designed to store up to 2^32 characters.
+ * String object used for kernel. Designed to store up to 2^31 - 1 characters.
  */
 struct SLUkstr {
   /** String length */
@@ -20,9 +20,6 @@ struct SLUkstr {
 
   /** String buffer */
   char *buf;
-
-  /** Whether or not struct "owns" buffer **/
-  bool isOwner;
 };
 
 
@@ -36,16 +33,14 @@ struct SLUkstr *SLUkstr_new(char *buf);
 
 /**
  * Constructs a new string structure from scratch. If buf is null, then an
- * empty struct is initialized with a null buffer. Otherwise, if isOwner is
- * true, then the struct's buffer pointer is assigned to buf, and size and len
- * are assigned to size. If isOwner is false, the buffer is copied up to size
- * bytes with strncpy, and will attempt to append a null char, given that size>len.
+ * empty struct is initialized with a null buffer. Otherwise, the struct's
+ * buffer pointer is assigned to buf, and size and len are assigned to size.
+ * The buffer is copied up to size bytes with strncpy, and will append null
+ * char.
  * @param buf Buffer to copy or own
  * @param len Length of string
- * @param size Amount of memory to allocate for char buffer
- * @param isOwner Whether or not structure owns the buffer
  */
-struct SLUkstr *SLUkstr_cstruct(char *buf, uint32_t len, uint32_t size, bool isOwner);
+struct SLUkstr *SLUkstr_cstruct(char *buf, uint32_t len);
 
 
 /**

@@ -8,58 +8,48 @@ struct SLUkstr *SLUkstr_new(char *buf)
 {
   if (buf){
     uint32_t blen = strlen(buf);
-    return SLUkstr_cstruct(buf, blen, blen+1, true);
+    return SLUkstr_cstruct(buf, blen);
 
   } else {
-    return SLUkstr_cstruct(NULL, 0, 0, true);
+    return SLUkstr_cstruct(NULL, 0);
   }
 }
 
 
-struct SLUkstr *SLUkstr_cstruct(char *buf, uint32_t len, uint32_t size, bool isOwner)
+struct SLUkstr *SLUkstr_cstruct(char *buf, uint32_t len)
 {
+  if (len >= (1 << 31))
+    return NULL; // Check max size
+
   struct SLUkstr *sstr = (struct SLUkstr *) malloc(sizeof(struct SLUkstr));
   if (!sstr)
-    return NULL;
+    return NULL; // Check allocation success
 
-  sstr->size = size;
+  // Calculate size
+  uint32_t logSize;
+  uint32_t tempLen = len;
+  for (logSize=0; tempLen>0; logSize++)
+    tempLen = tempLen >> 1;
+  sstr->size = 1 << logSize;
+  
+  if (sstr->size < SLUkstr_DEFAULT_BUFFER_SIZE)
+    sstr->size = SLUkstr_DEFAULT_BUFFER_SIZE; // Set minimum size
+
 
   if (!buf){
-    /* No string given */
+    // No string given; initialize empty string
     sstr->len = 0;
-
-    if (size > 0){
-      /* Initialize empty string. Struct must own string */
-      sstr->isOwner = true;
-      sstr->buf = (char *) calloc(1, size);
-
-    } else {
-      /* Initialize null string */
-      sstr->isOwner = isOwner;
-      sstr->buf = NULL;
-    }
+    sstr->buf = (char *) calloc(1, sstr->size);
 
   } else {
-    sstr->isOwner = isOwner;
+    // Copy from buffer
     sstr->len = len;
-
-    if (isOwner){
-      /* Copy from buffer (note: not the same as strncpy) */
-      sstr->buf = (char *) malloc(size);
-      uint32_t i = 0;
-      for (; i < len; i++){
-        sstr->buf[i] = buf[i];
-      }
-      if (i < size){
-        /* Append null char, if space is left over */
-        sstr->buf[i] = '\0';
-      }
-
-    } else {
-      /* Assign as buffer */
-      sstr->buf = buf;
+    sstr->buf = (char *) malloc(sstr->size);
+    uint32_t i = 0;
+    for (; i<len && buf[i]; i++){
+      sstr->buf[i] = buf[i];
     }
-
+    sstr->buf[len] = '\0'; // len < size, so this is allowed
   }
 
   return sstr;
@@ -71,12 +61,12 @@ void SLUkstr_dstruct(struct SLUkstr *sstr)
   if (!sstr)
     return;
 
-  if (sstr->isOwner && sstr->buf){
+  if (sstr->buf)
     free(sstr->buf);
-  }
+
   sstr->buf = NULL;
-  sstr->size = 0;
   sstr->len = 0;
+  sstr->size = 0;
 }
 
 
