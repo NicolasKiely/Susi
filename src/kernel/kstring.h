@@ -1,3 +1,7 @@
+/**
+ * Managed string structure
+ */
+
 #ifndef _KSTRING_H_
 #define _KSTRING_H_
 

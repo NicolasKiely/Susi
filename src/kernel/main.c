@@ -13,7 +13,8 @@
  *   -f <file>: Settings file to read (default "settings.txt")
  *   -s <settings line>: Override settings line
  */
-int main(int argc, char* argv[]){
+int main(int argc, char* argv[])
+{
     //char argFlag = '\0';
     //int loadedSettings = 0;
 

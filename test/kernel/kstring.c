@@ -12,6 +12,7 @@ int create_default_empty_string_kstr2();
 int create_default_abc_string_kstr();
 int check_default_abc_destruct_kstr();
 
+
 int main(int argc, char *argv[])
 {
   test(create_default_null_string_kstr,
