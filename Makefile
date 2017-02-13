@@ -7,8 +7,8 @@ SK=src/kernel/
 OK=obj/kernel/
 TK=test/kernel/
 TXK=test/kernel/bin/
-KOBJS=$(OK)main.o $(OK)kstring.o
-KHEADERS=$(SK)kstring.h
+KOBJS=$(OK)main.o $(OK)kstring.o $(OK)kkvmap.o
+KHEADERS=$(SK)kstring.h $(SK)kkvmap.h
 KTESTS=$(TXK)kstring.pass
 
 
@@ -54,3 +54,6 @@ $(OK)main.o: $(SK)main.c $(KHEADERS)
 
 $(OK)kstring.o: $(SK)kstring.c $(KHEADERS)
 	$(CC) -c $(SK)kstring.c -o $(OK)kstring.o
+
+$(OK)kkvmap.o: $(SK)kkvmap.c $(KHEADERS)
+	$(CC) -c $(SK)kkvmap.c -o $(OK)kkvmap.o

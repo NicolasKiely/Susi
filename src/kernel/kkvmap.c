@@ -10,15 +10,16 @@ struct SLUkkvMap *SLUkkvMap_new(void (*onRemove)(struct SLUktuple *))
   if (!map)
     return NULL;
 
-  map->count = 0;
+  map->len = 0;
   map->tuples = NULL;
   map->onRemove = onRemove;
+  map->size = 0;
 
   return map;
 }
 
 
-struct SLUkkvMap_dstruct(struct SLUkkvMap *map)
+void SLUkkvMap_dstruct(struct SLUkkvMap *map)
 {
   if (!map)
     return;
@@ -31,10 +32,24 @@ struct SLUkkvMap_dstruct(struct SLUkkvMap *map)
     }
     for (i=0; i<map->len; i++){
       if (map->onRemove)
-        map->onRemove(map->tuples + i);
-      SLUkstr_free(&(map->tuples + i));
+        map->onRemove(map->tuples + i); // callback
+      SLUkstr_free(&(map->tuples + i)->key);
     }
     free(map->tuples);
     map->tuples = NULL;
   }
+}
+
+
+void SLUkkvMap_free(struct SLUkkvMap **map)
+{
+  if (!map)
+    return;
+
+  SLUkkvMap_dstruct(*map);
+
+  if (*map)
+    free(*map);
+
+  *map = NULL;
 }
