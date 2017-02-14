@@ -63,4 +63,11 @@ void SLUkstr_dstruct(struct SLUkstr *sstr);
  */
 void SLUkstr_free(struct SLUkstr **sstr);
 
+
+/**
+ * Returns true if strings are equal, false otherwise
+ * @param 
+ */
+bool SLUkstr_eq(struct SLUkstr *lhs, struct SLUkstr *rhs);
+
 #endif

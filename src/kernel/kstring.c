@@ -82,3 +82,15 @@ void SLUkstr_free(struct SLUkstr **sstr)
 
   *sstr = NULL;
 }
+
+
+bool SLUkstr_eq(struct SLUkstr *lhs, struct SLUkstr *rhs)
+{
+  if (!lhs || !rhs)
+    return false; // Null values don't match anything
+
+  if (lhs->len != rhs->len)
+    return false; // Check string lengths first
+
+ return strcmp(lhs->buf, rhs->buf) == 0;
+}
