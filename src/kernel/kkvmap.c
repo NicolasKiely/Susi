@@ -6,16 +6,24 @@ struct SLUkkvMap *SLUkkvMap_new(void (*onRemove)(struct SLUktuple *))
 {
   struct SLUkkvMap *map;
 
+  // Allocate struct
   map = (struct SLUkkvMap *) malloc(sizeof(struct SLUkkvMap));
   if (!map)
     return NULL;
 
-  map->len = 0;
-  map->tuples = NULL;
   map->onRemove = onRemove;
-  map->size = 0;
+  SLUkkvMap_cstruct(map);
 
   return map;
+}
+
+
+void SLUkkvMap_cstruct(struct SLUkkvMap *m)
+{
+  m->len = 0;
+
+  m->size = SLUkstr_DEFAULT_BUFFER_SIZE;
+  m->tuples = (struct SLUktuple *) malloc(m->size*sizeof(struct SLUktuple));
 }
 
 
@@ -52,4 +60,29 @@ void SLUkkvMap_free(struct SLUkkvMap **map)
     free(*map);
 
   *map = NULL;
+}
+
+
+bool SLUkkvMap_setk(struct SLUkkvMap *map, struct SLUkstr *key, void *val)
+{
+  if (!map || !key)
+    return false;
+
+  // Find tuple
+  for (int i=0; i<map->len; i++){
+    struct SLUktuple *tuple = map->tuples + i;
+    if (SLUkstr_eq(key, tuple->key)){
+      // Found match
+      if (map->onRemove)
+        map->onRemove(tuple); // Remove old value
+
+      tuple->value = val; // Assign new value
+      return true;
+    }
+  }
+
+
+  // Key not found, add it
+
+  return false;
 }
