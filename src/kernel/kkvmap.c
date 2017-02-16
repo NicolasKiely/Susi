@@ -86,3 +86,15 @@ bool SLUkkvMap_setk(struct SLUkkvMap *map, struct SLUkstr *key, void *val)
 
   return false;
 }
+
+
+void *SLUkkvMap_getk(struct SLUkkvMap *map, struct SLUkstr *key)
+{
+  for (uint32_t i=0; i<map->len; i++){
+    struct SLUktuple *tuple = map->tuples + i;
+    if (SLUkstr_eq(key, tuple->key)){
+      return tuple->val;
+    }
+  }
+  return NULL;
+}

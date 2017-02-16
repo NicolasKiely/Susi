@@ -73,4 +73,12 @@ void SLUkkvMap_free(struct SLUkkvMap **map);
 bool SLUkkvMap_setk(struct SLUkkvMap *map, struct SLUkstr *key, void *val);
 
 
+/**
+ * Returns value for key, or null if not found
+ * @param map Map data structure to modify
+ * @param key Key string as lookup
+ */
+void *SLUkkvMap_getk(struct SLUkkvMap *map, struct SLUkstr *key);
+
+
 #endif
