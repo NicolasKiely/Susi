@@ -81,8 +81,19 @@ bool SLUkkvMap_setk(struct SLUkkvMap *map, struct SLUkstr *key, void *val)
     }
   }
 
-
   // Key not found, add it
+  if (map->len+1 == map->size){
+    // Grow map
+    map->size *= 2;
+    map->tuples = (struct SLUktuple *) realloc(
+        map->tuples, map->size*sizeof(struct SLUktuple)
+    );
+  }
+
+  struct SLUktuple *tuple = map->tuples + map->len;
+  map->len += 1;
+  tuple->key = key;
+  tuple->value = val;
 
   return false;
 }
@@ -92,9 +103,8 @@ void *SLUkkvMap_getk(struct SLUkkvMap *map, struct SLUkstr *key)
 {
   for (uint32_t i=0; i<map->len; i++){
     struct SLUktuple *tuple = map->tuples + i;
-    if (SLUkstr_eq(key, tuple->key)){
-      return tuple->val;
-    }
+    if (SLUkstr_eq(key, tuple->key))
+      return tuple->value;
   }
   return NULL;
 }
