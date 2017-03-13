@@ -1,6 +1,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "kstring.h"
+#include "kkvmap.h"
 //#include "settings.h"
 //#include "context.h"
 
@@ -43,5 +44,10 @@ int main(int argc, char* argv[])
     pCtx = NULL;
     */
 
-    return EXIT_SUCCESS;
+  // Initialize settings; use kstring destructor when removing values
+  struct SLUkkvMap *settings = SLUkkvMap_new(SLUktuple_freeKstr);
+  char *settingsFile = "settings.txt";
+
+  SLUkkvMap_free(&settings);
+  return EXIT_SUCCESS;
 }

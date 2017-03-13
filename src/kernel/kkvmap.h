@@ -81,4 +81,17 @@ bool SLUkkvMap_setk(struct SLUkkvMap *map, struct SLUkstr *key, void *val);
 void *SLUkkvMap_getk(struct SLUkkvMap *map, struct SLUkstr *key);
 
 
+/**
+ * Frees memory on value removal
+ * @param tuple Tuple being removed
+ */
+void SLUktuple_freeRemove(struct SLUktuple *tuple);
+
+
+/**
+ * Frees kstr on value removal
+ * @param tuple Tuple being removed
+ */
+void SLUktuple_freeKstr(struct SLUktuple *typle);
+
 #endif

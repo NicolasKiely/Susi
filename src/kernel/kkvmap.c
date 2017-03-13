@@ -92,6 +92,7 @@ bool SLUkkvMap_setk(struct SLUkkvMap *map, struct SLUkstr *key, void *val)
 
   struct SLUktuple *tuple = map->tuples + map->len;
   map->len += 1;
+  // TODO: Copy key
   tuple->key = key;
   tuple->value = val;
 
@@ -107,4 +108,29 @@ void *SLUkkvMap_getk(struct SLUkkvMap *map, struct SLUkstr *key)
       return tuple->value;
   }
   return NULL;
+}
+
+
+void SLUktuple_freeRemove(struct SLUktuple *tuple)
+{
+  if (!tuple)
+    return;
+
+  if (tuple->value){
+    free(tuple->value);
+    tuple->value = NULL;
+  }
+}
+
+
+void SLUktuple_freeKstr(struct SLUktuple *tuple)
+{
+  if (!tuple)
+    return;
+
+  if (tuple->value){
+    struct SLUkstr *valStr = (struct SLUkstr *) tuple->value;
+
+    SLUkstr_free(&valStr);
+  }
 }
